@@ -1,0 +1,64 @@
+
+
+
+// compile contract
+
+eosio-cpp contract/mechelenbon.cpp
+
+
+
+
+
+//account setup
+
+cleos create account eosio mechelenbon EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+
+
+-----------------------------------------------------
+
+
+//upload contract
+
+cleos set code mechelenbon mechelenbon.wasm
+cleos set abi mechelenbon mechelenbon.abi
+
+
+-----------------------------------------------------
+
+
+//test accounts
+
+cleos create account eosio bob EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+cleos create account eosio jane EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+
+
+-----------------------------------------------------
+
+
+//get table
+
+cleos get table mechelenbon '' bon   <- wrkt niet met nieuw contract
+
+cleos get table mechelenbon mechelenbon bonnen
+
+cleos get table mechelenbon mechelenbon handelaars
+
+cleos get table mechelenbon ''  usedbon
+
+-----------------------------------------------------
+
+//actions
+
+
+cleos push action mechelenbon createbon '[ bob, bob, 100]' -p mechelenbon
+
+cleos push action mechelenbon acceptbon '[ bob, 1000000000]' -p mechelenbon
+
+cleos push action mechelenbon spendbon '[ bob, bob, 250]' -p bob
+
+cleos push action mechelenbon givebon '[ jane,bob , 1000000010]' -p jane
+
+cleos push action mechelenbon handelaaradd '[ 0, bob]' -p mechelenbon
+
+
+
